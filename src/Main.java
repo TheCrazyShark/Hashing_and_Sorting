@@ -33,7 +33,7 @@ public class Main {
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
             line = line.toUpperCase();
-            line = line.replaceAll("[^A-Za-z0-9]", " ");
+            line = line.replaceAll("[^A-Za-z0-9\\n\\r]", " ") + " ";
             text += line;
         }
 
