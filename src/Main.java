@@ -7,6 +7,7 @@ public class Main {
     private static Scanner input = new Scanner(System.in);
     private static String fileName = "";
     private static String text = "";
+    private static String[] words;
 
     public static void main(String[] args) {
         System.out.println("Please enter the filename");
@@ -16,6 +17,8 @@ public class Main {
         try { readFile(); } catch (FileNotFoundException e) {
             System.out.println("Error: " + e);
         }
+
+        countHash();
     }
 
     // Read and convert file
@@ -25,18 +28,37 @@ public class Main {
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
             line = line.toUpperCase();
+            line = line.replaceAll("[^A-Za-z0-9]", " ");
             text += line;
         }
-        text = text.replaceAll("[^A-Za-z0-9]", " ");
+
+        words = text.split("\\s+");
     }
 
     public static void countHash() {
-        // declare with a String and an integer:
-        TreeMap myTreeMap = new TreeMap<>();
+        int count;
+        TreeMap<String, Integer> myTreeMap = new TreeMap<>(); // declare with a String and an integer:
         /*place the word and count into myTreeMap using the put method
         Use an iterator to print the each entry's Key and Value*/
-        for (Map.Entry entry : myTreeMap.entrySet()) {
 
+        // Checks current value & puts number into hashmap or increment count if value already exists
+        for(int i=0; i < words.length; i++) {
+            if (myTreeMap.get(words[i]) == null) {
+                myTreeMap.put(words[i], 1);
+            } else {
+                count = myTreeMap.get((words[i]));
+                count++;
+                myTreeMap.put(words[i], count);
+            }
+        }
+
+        /*for (Map.Entry entry : myTreeMap.entrySet()) {
+
+        }*/
+        // Print out counts of all numbers
+        System.out.println("\nCounts");
+        for( Map.Entry<String, Integer> entry : myTreeMap.entrySet() ){
+            System.out.println( entry.getKey() + ": " + entry.getValue() );
         }
     }
 }
