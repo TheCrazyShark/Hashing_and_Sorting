@@ -3,6 +3,11 @@ import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.Map;
 
+/*
+Creator Names: Shane Smith and Chad Green.
+Goal: Read in a specific text file, edit the words, then count and print them.
+ */
+
 public class Main {
     private static Scanner input = new Scanner(System.in);
     private static String fileName = "";
@@ -10,10 +15,10 @@ public class Main {
     private static String[] words;
 
     public static void main(String[] args) {
-        System.out.println("Please enter the filename");
+        System.out.print("Please enter the filename: ");
         fileName = input.next();
 
-        // Try & catch to read and convert file
+        // Try & catch to read and convert text in file
         try { readFile(); } catch (FileNotFoundException e) {
             System.out.println("Error: " + e);
         }
@@ -21,7 +26,7 @@ public class Main {
         countHash();
     }
 
-    // Read and convert file
+    // Read and convert text in the file
     public static void readFile() throws FileNotFoundException {
         Scanner sc = new Scanner(new File("src/" + fileName));
 
@@ -32,14 +37,12 @@ public class Main {
             text += line;
         }
 
-        words = text.split("\\s+");
+        words = text.split("\\s+"); // Add all the words into an array
     }
 
     public static void countHash() {
+        TreeMap<String, Integer> myTreeMap = new TreeMap<>(); // declare treemap with a String and an integer
         int count;
-        TreeMap<String, Integer> myTreeMap = new TreeMap<>(); // declare with a String and an integer:
-        /*place the word and count into myTreeMap using the put method
-        Use an iterator to print the each entry's Key and Value*/
 
         // Checks current value & puts number into hashmap or increment count if value already exists
         for(int i=0; i < words.length; i++) {
@@ -52,11 +55,8 @@ public class Main {
             }
         }
 
-        /*for (Map.Entry entry : myTreeMap.entrySet()) {
-
-        }*/
-        // Print out counts of all numbers
-        System.out.println("\nCounts");
+        // Print out words & their counts
+        System.out.println("\nCounts: ");
         for( Map.Entry<String, Integer> entry : myTreeMap.entrySet() ){
             System.out.println( entry.getKey() + ": " + entry.getValue() );
         }
